@@ -8,12 +8,15 @@ using namespace std;
  
 struct Bitset
 {
-    vector<int> B;    
+    vector<int> B;
+    int aux, sz; // aux representa quantos bits estão sobrando, e sz o tamanho do bitset   
      
     void resize(int x)
     {
-        int sz = (x / 32) + 1;
+        sz = (x / 32) + 1;
         B.resize(sz);
+        aux = x % 32;
+        sz = x;
     }
      
     void set(int x)
@@ -45,36 +48,49 @@ struct Bitset
      
     void setAll()
     {
-        for(int i = 0; i < (int)B.size(); i++) 
+        int k = (int)B.size();
+        for(int i = 0; i < k; i++) 
             B[i] = ~0;
+        for(int i = 31; i >= aux; i--)
+            B[k] &= ~(1 << i);
+    }
+
+    int count()
+    {
+        int k = (int)B.size(), cont = 0;
+        for(int i = k - 1; i >= 0; i--)
+        {
+            int j = 31;
+            if(k == int(B.size())) j = aux - 1;
+            for(; j >= 0; j--)
+                cont += (B[i] & (1 << j) ? 1 : 0);
+        }
+        return cont;
     }
 
     Bitset operator^(const Bitset &a)
     {
-        int k = (int)B.size();
         Bitset ans;
-        ans.resize(k);
-        for(int i = 0; i < k; i++) 
+        ans.resize(sz);
+        for(int i = 0; i < sz; i++) 
            ans.B[i] = B[i] ^ a.B[i];
-       return ans; 
+        return ans; 
     }
 
     Bitset operator&(const Bitset &a)
     {
-        int k = (int)B.size();
         Bitset ans;
-        ans.resize(k);
-        for(int i = 0; i < k; i++) 
+        ans.resize(sz);
+        for(int i = 0; i < sz; i++) 
            ans.B[i] = B[i] & a.B[i];
        return ans; 
     }
 
     Bitset operator|(const Bitset &a)
     {
-        int k = (int)B.size();
         Bitset ans;
-        ans.resize(k);
-        for(int i = 0; i < k; i++) 
+        ans.resize(sz);
+        for(int i = 0; i < sz; i++) 
            ans.B[i] = B[i] | a.B[i];
        return ans; 
     }
@@ -83,8 +99,12 @@ struct Bitset
     {
         int k = (int)B.size();
         for(int i = k - 1; i >= 0; i--)
-            for(int j = 31; j >= 0; j--)
+        {
+            int j = 31;
+            if(k == int(B.size())) j = aux - 1;
+            for(; j >= 0; j--)
                 printf(B[i] & (1 << j) ? "1" : "0");
+        }
         puts("");
     }
 
@@ -94,8 +114,8 @@ int main()
 {
     Bitset b, c;
     
-    b.resize(10);
-    c.resize(10);
+    b.resize(7);
+    c.resize(7);
     
     b.set(1);
     b.set(5);
@@ -107,16 +127,12 @@ int main()
 
     b.printtt();
 
-    c = b | c;
-    
-    c.printtt();
-
-    b.setAll();
-
-    c = b & c;
+    b.set(4);
+    b.set(0);
 
     b.printtt();
-    c.printtt();
+
+    cout << b.count() << '\n';
 
 	return 0;
 }
