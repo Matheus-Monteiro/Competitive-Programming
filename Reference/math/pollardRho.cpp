@@ -25,19 +25,36 @@ long long mulmod(long long a, long long b, long long c)
 	}
 	return ans;
 }
- 
+
 long long rho(long long n)
 {
     if(n % 2 == 0) return 2;
-    long long d, c = llrand() % n, x = llrand() % n, y = x;
-    do
+    long long d = n;
+    while(d == n)
     {
-        x = add(mulmod(x, x, n), c, n);
-        y = add(mulmod(y, y, n), c, n);
-        y = add(mulmod(y, y, n), c, n);
-        d = __gcd(abs(x - y), n);
-    }while(d == 1);
+        long long c = llrand() % n, x = llrand() % n, y = x;
+        do
+        {
+            x = add(mulmod(x, x, n), c, n);
+            y = add(mulmod(y, y, n), c, n);
+            y = add(mulmod(y, y, n), c, n);
+            d = __gcd(abs(x - y), n);
+        }while(d == 1);
+    }
     return d;
+}
+ 
+// Miller-Rabin AQUI
+ 
+vector<long long> fac;
+
+void factors(long long n) // encontrar os fatores primos de N
+{// Usar Miller-Rabin para testar se N é primo
+    if(n == 1) return;
+    if(isprime(n)) { fac.push_back(n); return; }
+    long long d = rho(n);
+    factors(d);
+    factors(n / d);
 }
  
 int main()
