@@ -5,7 +5,6 @@ using namespace std;
 
 vector<int> G[MAX];
 int nivel[MAX], pai[MAX], jump[MAX], n, blk_sz;
-bool visit[MAX];
 
 void dfs(int v, int d, int p)
 {
@@ -40,15 +39,8 @@ void build()
 
 int main()
 {
-    multimap<int, int> mapa;
-    int x, y, aux;
-    
+    int x, y;
     cin >> n;
-    for(int i = 0; i < n; i++)
-    {
-        cin >> aux;
-        mapa.insert({aux, i});
-    }
     for(int i = 0; i < n-1; i++)
     {
         cin >> x >> y;
@@ -56,20 +48,8 @@ int main()
         G[y-1].push_back(x-1);
     }
     build();
-    int t = 0;
-    for(int i = 1; i <= n/2; i++)
-    {
-        auto it = mapa.find(i);
-        x = it->second;
-        it++;
-        y = it->second;
-        if(!visit[it->first])
-        {
-            t += nivel[x] + nivel[y] - 2*nivel[lca(x, y)];
-            visit[it->first] = 1;
-        }
-    }
-    cout << t << '\n';
+    cin >> x >> y;
+    cout << lca(x-1, y-1) + 1 << '\n'; 
 
     return 0;
 }
