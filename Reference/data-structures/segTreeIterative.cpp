@@ -37,7 +37,7 @@ int main()
 	{
 		cin >> o >> l >> r;
 		if(o == 1)
-			cout << query(l - 1, r) << '\n'; // soma de [l, r]
+			cout << query(l - 1, r) << '\n'; // soma de [l, r)
 		else
 			update(l - 1, r); // atualiza a posição l pra r
 	}
