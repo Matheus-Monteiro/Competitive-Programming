@@ -19,3 +19,63 @@ int main()
 
     return 0;
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> // Common file
+#include <ext/pb_ds/tree_policy.hpp> // Including tree_order_statistics_node_update
+using namespace std;
+using namespace __gnu_pbds;
+
+#define vi vector<int>
+#define var pair<int,int>
+#define ordered_multiset tree<var, null_type, less<var>, rb_tree_tag, tree_order_statistics_node_update>
+
+int id = 0; map<int,vi> ids;
+
+void insere(ordered_multiset &s, int x)
+{
+    s.insert({x, ++id});
+    ids[x].push_back(id);
+}
+
+void apaga(ordered_multiset &s, int x)
+{
+	if(ids[x].empty()) return;
+    s.erase({x, ids[x].back()});
+    ids[x].pop_back();
+}
+
+int kth(ordered_multiset &s, int x)
+{
+    return s.find_by_order(x)->first;
+}
+
+int smallerCount(ordered_multiset &s, int x)
+{
+    return s.order_of_key({x, 0});
+}
+
+int count(ordered_multiset &s, int x)
+{
+    return smallerCount(s, x + 1) - smallerCount(s, x);
+}
+
+ordered_multiset::iterator find(ordered_multiset &s, int x)
+{
+	if(ids[x].empty())
+		return s.end();
+    return s.find({x, ids[x].back()});
+}
+
+int main()
+{
+    ordered_multiset X;
+    
+   	// usar funções ...
+
+    return 0;
+}
