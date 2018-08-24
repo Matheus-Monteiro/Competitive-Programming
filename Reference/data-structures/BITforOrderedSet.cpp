@@ -4,6 +4,21 @@ const int MAX = 1e5+10;
 
 int bit[MAX], arr[MAX];
 
+
+int bitSearch(int v) 
+{
+	int sum = 0, pos = 0, LOGN = log2(MAX - 2);
+	for(int i = LOGN; i >= 0; i--)
+		if(pos + (1 << i) < MAX and sum + bit[pos + (1 << i)] < v)
+		{
+			sum += bit[pos + (1 << i)];
+			pos += (1 << i);
+		}
+	return pos + 1; // pos + 1, pq pos é a maior posição cuja soma do prefixo até ela é menor que V 
+}
+// essa função retorna o indice J no array em que a soma do prefixo [1, J] é o lower_bound para V 
+// inserir os elemento na BIT com add(i, arr[i]), para todo i em [1, n]
+
 int query(int idx)// soma de um prefixo
 {
 	int sum = 0;
@@ -31,41 +46,15 @@ int greaterCount(int v)
 	return query(MAX - 3) - query(v - 1);
 }
 
-int kth(int k)
-{
-	int l = 0, r = MAX - 3;
-	while(l <= r)
-	{
-		int mid = (l + r) / 2;
-		int sum = query(mid);
-		if(sum == k)
-			return mid;
-		if(sum > k)
-			r = mid - 1;
-		else
-			l = mid + 1;
-	}
-	return -1;
-}
-
 int orderOfKey(int v)
 {
-	return smallerCount(v) - 1;
+	return smallerCount(v);
 }
 
-int bitSearch(int v) 
+int kth(int k)
 {
-	int sum = 0, pos = 0, LOGN = log2(MAX - 2);
-	for(int i = LOGN; i >= 0; i--)
-		if(pos + (1 << i) < MAX and sum + bit[pos + (1 << i)] < v)
-		{
-			sum += bit[pos + (1 << i)];
-			pos += (1 << i);
-		}
-	return pos + 1; // pos + 1, pq pos é a maior posição cuja soma do prefixo até ela é menor que V 
+	return bitSearch(k);
 }
-// essa função retorna o indice J no array em que a soma do prefixo [1, J] é o lower_bound para V 
-// inserir os elemento na BIT com add(i, arr[i]), para todo i em [1, n]
 
 int main()
 {	
