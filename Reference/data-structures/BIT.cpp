@@ -3,6 +3,24 @@ using namespace std;
 
 int aux, n, BIT[1000];
 
+void build() // construir uma BIT a partir de um array em O(N)
+{
+	for(int i = 1; i <= n; i++)
+	{
+		BIT[i] += arr[i];
+		if(i + (i & -i) <= n)
+			BIT[i + (i & -i)] += BIT[i];
+	}
+}
+
+void buildArray() // construir o array que gera a BIT a partir de uma BIT em O(N)
+{
+	for(int i = n; i >= 1; i--)
+		if(i + (i & -i) <= n)
+			BIT[i + (i & -i)] -= BIT[i];
+}
+
+
 int sum(int x)
 {
     int s = 0;
