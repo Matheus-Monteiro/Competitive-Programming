@@ -30,8 +30,8 @@ struct Treap
 		if(t->rev)
 		{
 			swap(t->l, t->r);
-			if(t->l != nullptr) t->rev ^= 1;
-			if(t->r != nullptr) t->rev ^= 1;
+			if(t->l != nullptr) t->l->rev ^= 1;
+			if(t->r != nullptr) t->r->rev ^= 1;
 			t->rev = 0;
 		}
 		t->recalc();
