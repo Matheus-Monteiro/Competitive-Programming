@@ -60,31 +60,6 @@ struct Treap
 		v->recalc();
 	}
 
-	// Ficarão "quantidade" no l, e os demais no r.
-	void splitSmallest(Node *v, int quantidade, Node *&l, Node *&r)
-	{
-		l = r = nullptr;
-		if(!v) return;
-		
-		if(v->l and v->l->size >= quantidade)
-		{
-			splitSmallest(v->l, quantidade, l, v->l);
-			r = v;
-		}
-		else if((v->l ? v->l->size : 0) + 1 == quantidade)
-		{
-			r = v->r;
-			l = v;
-			v->r = nullptr;
-		}
-		else
-		{
-			splitSmallest(v->r, quantidade - 1 - (v->l ? v->l->size : 0), v->r, r);
-			l = v;
-		}
-		v->recalc();
-	}
-
 	bool find(Node *v, int valor)
 	{
 		if(!v) return false;
@@ -167,6 +142,10 @@ struct Treap
 		root = merge(l,r);
 		return res;
 	}
+	
+	// splitSmallest é uma função que está na implicit treap
+	
+	
 	// Retorna a consulta dos primeiros "quantidade" valor
 	int top(int quantidade)
 	{
