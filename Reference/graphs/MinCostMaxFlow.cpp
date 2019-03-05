@@ -1,106 +1,92 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define fi first
-#define se second
-
-const int MAX = 300;
+const int MAX = 1e3;
 const int OO = 0x3f3f3f3f;
-
-typedef pair<int, int> ii;
-
-struct edge
-{
-    int v, f, c, cost;
-    edge(){}
-    edge(int _v, int _f, int _c, int _cost)
-    {
-        v = _v, f = _f, c = _c, cost = _cost;
-    }
-};
-
-int n, m;
+ 
+struct edge {int v, f, w, c; };
+ 
+// flw_lmt é a quantidade de de fluxo que posso passar
+//no máximo, alterar se necessário
+int node_count, flw_lmt = OO, p[MAX];
 vector<edge> edges;
 vector<int> G[MAX];
-int dist[MAX], pai[MAX], ant[MAX];
 
-void add_edge(int u, int v, int cp, int rc, int cost)
+// u--->v, custo w e capacidade c
+void add_edge(int u, int v, int w, int c)
 {
-    edges.push_back(edge(v, 0, cp, cost));
-    G[u].push_back(edges.size()-1);
-    edges.push_back(edge(u, 0, rc, cost));
-    G[v].push_back(edges.size()-1);
+	int k = edges.size();
+	node_count = max(node_count, u+1);
+	node_count = max(node_count, v+1);
+	G[u].push_back(k);
+	G[v].push_back(k+1);
+	edges.push_back({ v, 0,  w, c });
+	edges.push_back({ u, 0, -w, 0 });
 }
 
-bool dijkstra(int s, int t)
+void clear()
 {
-	memset(dist, 63, sizeof(dist));
-	dist[s] = 0;
-	priority_queue<ii, vector<ii>, greater<ii>> pq; 
-	pq.push({0, s});
-	while(!pq.empty())
+	flw_lmt = OO;
+	for(int i = 0; i < node_count; ++i) G[i].clear();
+	edges.clear();
+	node_count = 0;
+}
+ 
+bool SPFA(int s, int t)
+{
+	vector<int> dist(node_count, OO);
+	vector<int> et(node_count, 0);
+	deque<int> q;
+	q.push_back(s), dist[s] = 0;
+	while (!q.empty())
 	{
-		int u = pq.top().se, d = pq.top().fi;
-		pq.pop();
-		if(dist[u] < d) continue;
-		for(int &e : G[u])
-			if(edges[e].c - edges[e].f > 0)
+		int u = q.front(); q.pop_front();
+		et[u] = 2;
+		for(int i : G[u])
+		{
+			edge &e = edges[i];
+			int v = e.v;
+			if (e.f < e.c and dist[v] > dist[u] + e.w)
 			{
-				int w = edges[e].v, dd = edges[e].cost;
-				if(dist[w] > d + dd)
-				{
-					pai[w] = u;
-					ant[w] = e;
-					dist[w] = d + dd;
-					pq.push({dist[w], w});
-				}
+				dist[v] = dist[u] + e.w;
+				if (et[v] == 0) q.push_back(v);
+				else if (et[v] == 2) q.push_front(v);
+				et[v] = 1;
+				p[v] = i;
 			}
+      		}
 	}
 	return dist[t] != OO;
 }
-
-void MCMF(int s, int t)
+ 
+int min_cost_max_flow(int s, int t)
 {
-	int mf = 0, mcmf = 0;
-	while(dijkstra(s, t))
-	{
-		int v = t, garg = OO;
-		while(v != s)
+	int mf = 0, cost = 0;
+  	while(SPFA(s, t) and mf < flw_lmt)
+  	{
+		int inc = flw_lmt - mf;
+		for (int u = t; u != s; u = edges[p[u]^1].v)
 		{
-			int u = pai[v], e = ant[v];
-			garg = min(garg, edges[e].c - edges[e].f);
-			v = u;
+			edge &e = edges[p[u]];
+			inc = min(inc, e.c - e.f);
 		}
-		v = t;
-		while(v != s)
+		for (int u = t; u != s; u = edges[p[u]^1].v)
 		{
-			int u = pai[v], e = ant[v];
-			edges[e].f += garg;
-			edges[e ^ 1].f -= garg;
-			if(e & 1)
-				mcmf -= garg * edges[e].cost;
-			else
-				mcmf += garg * edges[e].cost;
-			v = u;
+			edge &e = edges[p[u]], &rev = edges[p[u]^1];
+			e.f += inc;
+			rev.f -= inc;
+			cost += inc * e.w;
 		}
-		mf += garg;
+    		if (!inc) break;
+    		mf += inc;
 	}
 	cout << "Max Flow " << mf << '\n';
-	cout << "Min Cost Max Flow " << mcmf << '\n';
+	cout << "Min Cost " << cost << '\n';
+	return cost;
 }
-
+ 
 int main()
 {
-	cin >> n >> m;
-	while(m--)
-	{
-		int u, v, w, c;
-		//u->v, peso w, c é o custo por unidade de fluxo
-		cin >> u >> v >> w >> c; u--; v--;
-		add_edge(u, v, w, 0, c);
-		add_edge(v, u, 0, 0, c);
-	}
-	MCMF(0, n - 1);
-				
+	
+ 
 	return 0;
-}
+} 
