@@ -6,7 +6,9 @@ const int OO = 0x3f3f3f3f;
 struct edge {int v, f, w, c; };
  
 // flw_lmt é a quantidade de de fluxo que posso passar
-//no máximo, alterar se necessário
+// no máximo, alterar se necessário
+// node_count é o valor do maior vertice no grafo...
+// inicializar node_count com número de vertices no inicio...
 int node_count, flw_lmt = OO, p[MAX];
 vector<edge> edges;
 vector<int> G[MAX];
