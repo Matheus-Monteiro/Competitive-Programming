@@ -15,6 +15,7 @@ void build()
 
 int succ(int u, int k)
 {
+	// em caso de ciclo, usar k modulo tamanho do ciclo
 	while(k)
 	{
 		u = table[u][(int)log2(k&-k)];
