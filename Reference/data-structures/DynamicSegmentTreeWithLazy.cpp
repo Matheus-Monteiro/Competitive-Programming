@@ -10,7 +10,9 @@ vector<Node> tree;
 vector<int> lazy;
  
 int init()
-{
+{	
+	tree.clear();
+	lazy.clear();
 	tree.emplace_back();
 	lazy.push_back(0);
 }
@@ -61,7 +63,7 @@ void update(int node, int start, int end, int l, int r, int value)
  
 	if(l <= start and end <= r)
 	{
-		tree[node].value = value * (end - start + 1);
+		tree[node].value = value * (end - start + 1); // +=
 		if(tree[node].l == 0) createL(node);
 		if(tree[node].r == 0) createR(node);
 		if(start != end)
