@@ -34,8 +34,8 @@ void createR(int node)
 void calc(int node)
 {
 	tree[node].value = 0;
-	if(tree[node].l == 0) tree[node].value += tree[tree[node].l].value;
-	if(tree[node].r == 0) tree[node].value += tree[tree[node].r].value;
+	if(tree[node].l) tree[node].value += tree[tree[node].l].value;
+	if(tree[node].r) tree[node].value += tree[tree[node].r].value;
 }
  
 void push(int node, int start, int end)
