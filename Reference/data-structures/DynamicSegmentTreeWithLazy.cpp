@@ -34,10 +34,8 @@ void createR(int node)
 void calc(int node)
 {
 	tree[node].value = 0;
-	if(tree[node].l == 0) createL(node);
-	if(tree[node].r == 0) createR(node);
-	tree[node].value += tree[tree[node].l].value;
-	tree[node].value += tree[tree[node].r].value;
+	if(tree[node].l == 0) tree[node].value += tree[tree[node].l].value;
+	if(tree[node].r == 0) tree[node].value += tree[tree[node].r].value;
 }
  
 void push(int node, int start, int end)
@@ -64,10 +62,10 @@ void update(int node, int start, int end, int l, int r, int value)
 	if(l <= start and end <= r)
 	{
 		tree[node].value = value * (end - start + 1); // +=
-		if(tree[node].l == 0) createL(node);
-		if(tree[node].r == 0) createR(node);
 		if(start != end)
 		{
+			if(tree[node].l == 0) createL(node);
+			if(tree[node].r == 0) createR(node);
 			lazy[tree[node].l] = value; // +=
 			lazy[tree[node].r] = value; // +=
 		}
