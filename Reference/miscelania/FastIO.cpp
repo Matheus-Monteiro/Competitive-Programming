@@ -39,6 +39,20 @@ inline void printint(int n)
 		pc('0');
 	pc('\n');
 }
+
+inline void scanstr(string &k)
+{
+    register char c;
+	k = "";
+    for(c = gc(); c < 'a' or c > 'z'; c = gc());
+    for(; c >= 'a' and c <= 'z'; c = gc()) k.push_back(c);
+}
+ 
+inline void printstr(string &k)
+{
+	for(char &c : k) putchar(c);
+	putchar('\n');
+}
  
 int main()
 {
