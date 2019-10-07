@@ -73,14 +73,14 @@ type binarySearch(type x)
  
 /*
     Maximum Y coordenate query, we have two options:
-        1) Maximum Y-coordenate query: multiply m and b by -1 and
-        make minimum Y-corrdenate query... 
-        
-        2) Order lines by increasing m if m is not equal, otherwise by decreasing b
-           in the function query and binary Search change < to >
-                eval(pointer+1, x) < eval(pointer, x)
-                to,
-                eval(pointer+1, x) > eval(pointer, x)
+    1) Maximum Y-coordenate query: multiply m and b by -1 and
+    make minimum Y-corrdenate query... 
+    
+    2) Order lines by increasing m if m is not equal, otherwise by decreasing b
+       in the function query and binary Search change < to >
+            eval(pointer+1, x) < eval(pointer, x)
+            to,
+            eval(pointer+1, x) > eval(pointer, x)
 */
  
 int main()

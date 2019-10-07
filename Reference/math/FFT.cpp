@@ -255,7 +255,8 @@ int main()
 	}
 	multiply(a, b, n);
 	for(int i = 0; i < n - 1; i++)
-		cout << int(a[i].x + 0.5) << "X^" << n - 2 - i << (i < n - 2 ? " + " : "");
+		cout << int(a[i].x + 0.5) << "X^"
+		 << n - 2 - i << (i < n - 2 ? " + " : "");
 	puts("");
 
 	/*
@@ -269,7 +270,7 @@ int main()
 } 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 //contar quantos subarrays de soma diferentes existem usando FFT
 
 #include <bits/stdc++.h>
@@ -375,4 +376,3 @@ int main()
 	
 	return 0;
 } 
-

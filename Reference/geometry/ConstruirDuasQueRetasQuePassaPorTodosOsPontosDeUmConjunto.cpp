@@ -28,7 +28,8 @@ bool inLine(int a, int b, int c)
     return ((point[a] - point[c]) * (point[b] - point[c])) == 0LL;
 }
 
-bool check(int a, int b)// traça a reta AB e verifica se todos os pontos que não estão em AB estão contidos em uma mesma reta
+bool check(int a, int b)// traça a reta AB e verifica se todos os 
+//pontos que não estão em AB estão contidos em uma mesma reta
 {
     memset(visit, 0, sizeof(visit));
     visit[a] = visit[b] = 1;
@@ -43,8 +44,8 @@ bool check(int a, int b)// traça a reta AB e verifica se todos os pontos que n�
     visit[c[0]] = visit[c[1]] = 1;
     for(int i = 0; i < n; i++)
         if(!visit[i])
-        {   
-            if(inLine(c[0], c[1], i))// checo se o ponto que não estã na reta AB está na reta C0C1
+        {   // checo se o ponto que não estã na reta AB está na reta C0C1
+            if(inLine(c[0], c[1], i))
                 visit[i] = 1;
             else
                 return false;
@@ -61,7 +62,8 @@ int main()
     int k = 2;
     while(k < n and inLine(0, 1, k)) k++;
     if(k == n) return cout << "YES\n", 0;
-    cout << ((check(0, 1) or check(0, k) or check(1, k)) ? "YES\n" : "NO\n");    
+    cout << ((check(0, 1) or check(0, k) 
+    	or check(1, k)) ? "YES\n" : "NO\n");    
 
     return 0;
 }

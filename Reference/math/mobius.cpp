@@ -1,9 +1,14 @@
 /*
-	μ(n) = 0 se n tem como divisor um outro número natural ao quadrado
-	μ(n) = 1 se n não tem como divisor um outro número natural ao quadrado
-		e é decomposto em uma quantidade par de números primos
-	μ(n) = -1 se n não tem como divisor um outro número natural ao quadrado
-		e é decomposto em uma quantidade ímpar de números primos
+- μ(n) = 0 se n tem como divisor um outro numero 
+natural ao quadrado
+- μ(n) = 1 se n nao tem como divisor um outro
+numero natural ao quadrado
+e eh decomposto em uma quantidade par de
+numeros primos
+- μ(n) = -1 se n nao tem como divisor um outro
+numero natural ao quadrado
+e eh decomposto em uma quantidade impar de
+numeros primos
 */
 
 #include "bits/stdc++.h"

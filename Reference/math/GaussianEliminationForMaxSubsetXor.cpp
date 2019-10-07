@@ -1,5 +1,6 @@
-//https://myprogrammingdesk.wordpress.com
-//https://math.stackexchange.com/questions/48682/maximization-with-xor-operator
+//  https://myprogrammingdesk.wordpress.com
+//  https://math.stackexchange.com/questions
+//  /48682/maximization-with-xor-operator
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -27,8 +28,11 @@ int main()
     int lengths[n]; 
     for(int i = 0; i < n; i++)
         lengths[i] = MSB(a[i]);
-    vector<ull> buckets[65];// é um array que armazena os coeficientes das equações
-    // para a Gaussian Elimination, semelhante a linha da matriz em algebra linear
+    //é um array que armazena os coeficientes 
+    //das equações
+    vector<ull> buckets[65];
+    //para a Gaussian Elimination, semelhante
+    //a linha da matriz em algebra linear
     for(int i = 0; i < n; i++)
         buckets[lengths[i]].push_back(a[i]);
     ull modified_array[100], m_index = 0;

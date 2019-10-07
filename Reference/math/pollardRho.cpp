@@ -1,22 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
  
-long long llrand()
+ll llrand()
 {
-	long long tmp = rand();
+	ll tmp = rand();
 	return (tmp << 31) | rand();
 }
  
-long long add(long long a, long long b, long long c)
+ll add(ll a, ll b, ll c)
 {
-	long long ans = (a + b) % c;
+	ll ans = (a + b) % c;
     if(ans < 0) ans += c;
     return ans;
 }
  
-long long mulmod(long long a, long long b, long long c)
+ll mulmod(ll a, ll b, ll c)
 {
-	long long ans = 0;
+	ll ans = 0;
 	while(b)
 	{
 		if(b & 1) ans = add(ans, a, c);
@@ -26,13 +27,13 @@ long long mulmod(long long a, long long b, long long c)
 	return ans;
 }
 
-long long rho(long long n)
+ll rho(ll n)
 {
     if(n % 2 == 0) return 2;
-    long long d = n;
+    ll d = n;
     while(d == n)
     {
-        long long c = llrand() % n, x = llrand() % n, y = x;
+        ll c = llrand() % n, x = llrand() % n, y = x;
         do
         {
             x = add(mulmod(x, x, n), c, n);
@@ -46,21 +47,21 @@ long long rho(long long n)
  
 // Miller-Rabin AQUI
  
-vector<long long> fac;
+vector<ll> fac;
 
-void factors(long long n) // encontrar os fatores primos de N
+void factors(ll n) // encontrar os fatores primos de N
 {// Usar Miller-Rabin para testar se N é primo
     if(n == 1) return;
     if(isprime(n)) { fac.push_back(n); return; }
-    long long d = rho(n);
+    ll d = rho(n);
     factors(d);
     factors(n / d);
 }
  
-int main()
+int32_t main()
 {
     srand(time(NULL));
-    long long n;
+    ll n;
     cin >> n;
     cout << rho(n) << '\n';
      
