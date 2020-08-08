@@ -376,3 +376,145 @@ int main()
 	
 	return 0;
 } 
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include <bits/stdc++.h>
+ 
+using namespace std;
+
+typedef long double ld;
+const double PI = acos(-1);
+
+struct T
+{
+	ld x, y;
+	T() : x(0), y(0) {}
+	T(ld a, ld b=0) : x(a), y(b) {}
+
+	T operator/=(ld k) { x/=k; y/=k; return (*this); }
+	T operator*(T a) const { return T(x*a.x - y*a.y, x*a.y + y*a.x); }
+	T operator+(T a) const { return T(x+a.x, y+a.y); }
+	T operator-(T a) const { return T(x-a.x, y-a.y); }
+} a[1 << 20], b[1 << 20];
+
+void fft(T* a, int n, int s)
+{
+	for (int i=0, j=0; i<n; i++)
+	{
+		if (i>j) swap(a[i], a[j]);
+		for (int l=n/2; (j^=l) < l; l>>=1);
+	}
+	for(int i = 1; (1<<i) <= n; i++)
+	{
+		int M = 1 << i;
+		int K = M >> 1;
+		T wn = T(cos(s*2*PI/M), sin(s*2*PI/M));
+		for(int j = 0; j < n; j += M)
+		{
+			T w = T(1, 0);
+			for(int l = j; l < K + j; ++l)
+			{
+				T t = w*a[l + K];
+				a[l + K] = a[l]-t;
+				a[l] = a[l] + t;
+				w = wn*w;
+			}
+		}
+	}
+}
+
+void multiply(T* a, T* b, int n)
+{
+	fft(a,n,1);
+	fft(b,n,1);
+	for (int i = 0; i < n; i++)
+		a[i] = a[i]*b[i];
+	fft(a,n,-1);
+	for (int i = 0; i < n; i++)
+		a[i] /= n;
+}
+ 
+const int base = 10;
+vector<int> normalize(vector<int> c)
+{
+    int carry = 0;
+    for(auto &it: c)
+    {
+        it += carry;
+        carry = it / base;
+        it %= base;
+    }
+    while(carry)
+    {
+        c.push_back(carry % base);
+        carry /= base;
+    }
+    return c;
+}
+ 
+vector<int> faz(string s)
+{
+	vector<int> ans;
+	for(char &c : s)
+		ans.push_back(c-'0');
+	return ans;
+}
+ 
+string mul(string s1, string s2)
+{
+	vector<int> A = normalize(faz(s1));
+	vector<int> B = normalize(faz(s2));
+
+	int na = A.size(), nb = B.size();
+	int n = na + nb;
+
+	while(n&(n-1))
+		n++;
+	
+	reverse(A.begin(), A.end());
+	reverse(B.begin(), B.end());
+	
+	while(A.size() < n) A.push_back(0);
+	while(B.size() < n) B.push_back(0);
+	
+	reverse(A.begin(), A.end());
+	reverse(B.begin(), B.end());
+	
+	for(int i = 0; i < n; i++)
+		a[i] = T(A[i]);
+	for(int i = 0; i < n; i++)
+		b[i] = T(B[i]);
+
+	multiply(a, b, n);
+
+	vector<int> r;
+	for(int i = 0; i < n - 1; i++)
+		r.push_back(a[i].x + 0.5);
+	
+	reverse(r.begin(), r.end());
+	
+	r = normalize(r);
+
+	while(r.back() == 0)
+        	r.pop_back();
+
+	reverse(r.begin(), r.end());
+	
+	string ans;
+	
+	for(int &c: r)
+		ans.push_back(c + '0');
+
+	return ans;
+}
+ 
+int main()
+{
+	
+
+	return 0;
+} 
+
