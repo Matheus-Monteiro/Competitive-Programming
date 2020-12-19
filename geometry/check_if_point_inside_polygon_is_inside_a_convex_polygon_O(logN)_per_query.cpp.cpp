@@ -54,10 +54,10 @@ bool pointInConvexPolygon(ii p)
         return false;
     //o ponto esta em cima do segento P[0], P[n-1]
     if((p - P[0]) * (P[n - 1] - P[0]) == 0)
-        return  dist(P[0], p) <= dist(P[0], P[n - 1]);
+        return  dist(P[0], p) <= dist(P[0], P[n - 1]) and dist(P[n - 1], p) <= dist(P[0], P[n - 1]);
     //o ponto esta em cima do segento P[0], P[1]
     if((P[1] - P[0]) * (p - P[0]) == 0)
-        return  dist(P[0], p) <= dist(P[0], P[1]);
+        return  dist(P[0], p) <= dist(P[0], P[1]) and dist(P[1], p) <= dist(P[0], P[1]);
     // se o ponto esta entre os segmentos P[0], P[n]
     int l = 0, e = n - 1, ans = 0;
     while(l <= e)
