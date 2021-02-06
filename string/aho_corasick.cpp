@@ -102,3 +102,97 @@ int main()
         // aparece no texto, 0 cc
 	return 0;
 }
+
+//#############################################################################################
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int K = 60;
+
+struct Vertex {
+   int next[K];
+   bool leaf = false;
+   int p = -1;
+   char c;
+   int link = -1;
+   int go[K];
+   bitset<1005> S; 
+   Vertex(int _p=-1, char _c = '$') : p(_p), c(_c) {
+      fill(begin(next), end(next), -1);
+      fill(begin(go), end(go), -1);
+   }
+};
+
+vector<Vertex> t;
+
+void init() {
+   t.clear();
+   t.resize(1);
+}
+
+void add(string &s, int i) {
+   int v = 0;
+   for(char ch : s) {
+      int c = ch - 'A';
+      if(t[v].next[c] == -1) {
+         t[v].next[c] =  t.size();
+         t.push_back(Vertex(v, ch));
+      }
+      v = t[v].next[c];
+   }
+   t[v].leaf = true;
+   t[v].S[i] = 1;
+}
+
+int go(int v, char ch);
+
+int get_link(int v) {
+   if(t[v].link == -1) {
+      if(v == 0 or t[v].p == 0)
+         t[v].link = 0;
+      else
+         t[v].link = go(get_link(t[v].p), t[v].c);
+   }
+   return t[v].link;
+}
+
+int go(int v, char ch) {
+   int c = ch - 'A';
+   if(t[v].go[c] == -1) {
+      if(t[v].next[c] != -1)
+         t[v].go[c] = t[v].next[c];
+      else 
+         t[v].go[c] = v == 0 ? 0 : go(get_link(v), ch);
+   }
+   return t[v].go[c];
+}
+
+int32_t main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+   
+   int caso;
+   cin >> caso;
+   while(caso--) {
+      init();
+      string s;
+      int n;
+      cin >> s >> n;
+      bitset<1005> S;
+      for(int i = 0; i < n; i++) {
+         string a;
+         cin >> a;
+         add(a, i);
+      }
+      int v = 0;
+      for(char &c : s) {
+         v = go(v, c);
+         S |= t[v].S;
+      }
+      for(int i = 0; i < n; i++)
+         cout << (S[i] ? 'y' : 'n') << '\n';
+   }
+
+	return 0;
+}
