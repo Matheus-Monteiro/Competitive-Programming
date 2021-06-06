@@ -7,7 +7,7 @@ title = "GEMP - UECE - ICPC Library"
 def get_sections():
   sections = []
   section_name = None
-  with open("contents.md", 'r') as f:
+  with open("../contents.md", 'r') as f:
     for line in f:
       line = line.strip()
       if len(line) < 2: 

@@ -16,7 +16,8 @@ sudo apt-get install latexmk
 ## Execution
 
 ```script
-python3 build/generate_pdf.py
+cd build
+python3 generate_pdf.py
 ```
 
 ## Add
