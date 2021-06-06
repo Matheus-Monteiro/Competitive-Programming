@@ -1,7 +1,3 @@
-/*
- *  @author: Matheus Monteiro Silveira
- */
-
 #include <bits/stdc++.h>
 using namespace std;
 #define X first

@@ -1,15 +1,10 @@
-/*
- *  @author: Matheus Monteiro Silveira
- */
-
 #include <bits/stdc++.h>
 using namespace std;
 
 int dist[22][22], m;
 int memo[20][1 << 20];
 
-int solve(int id, int mask)
-{
+int solve(int id, int mask) {
 	if(((1 << m) - 1) == mask)
 		return dist[id][0];
 	if(memo[id][mask] != -1)
@@ -21,8 +16,7 @@ int solve(int id, int mask)
 	return memo[id][mask] = ans;
 }
 
-int main()
-{
+int main() {
 	memset(memo, -1, sizeof(memo));
 	//inicializa a matriz dist com as distancias
 	//de todo mundo pra todo mundo..

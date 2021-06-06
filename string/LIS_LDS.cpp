@@ -1,7 +1,3 @@
-/*
- *  @author: Matheus Monteiro Silveira
- */
-
 #include <bits/stdc++.h>
 using namespace std;
 const int MAX = 1e4;
@@ -10,8 +6,7 @@ int n;
 int LI[MAX], LD[MAX];
 vector<int> arr;
 
-int LIS()
-{
+int LIS() {
     for(int i = 0; i < n; i++)
         LI[i] = 1;
     for(int i = n - 1; i >= 0; i--)
@@ -20,14 +15,12 @@ int LIS()
                 LI[j] = max(LI[j], LI[i] + 1);  
 }
 
-int LDS()
-{
+int LDS() {
     reverse(arr.begin(), arr.end());
     for(int i = 0; i < n; i++)
         LD[i] = 1;
     vector<int> pilha;
-    for(int i = 0; i < n; i++)
-    {
+    for(int i = 0; i < n; i++) {
         int p = (int)(lower_bound(pilha.begin(),
         	pilha.end(), arr[i]) - pilha.begin());
         if(p == pilha.size())
@@ -39,19 +32,13 @@ int LDS()
                 
 }
 
-int main()
-{	
+int main() {	
     cin >> n; arr.resize(n);
     for(int i = 0; i < n; i++) cin >> arr[i];
    
     LIS();
     LDS();
- 
-    // LI[i] guarda o tamanho da maior subsequencia
-    // crescente que começa na posição i
-    // LD[i] guarda o tamanho da maior subsequencia
-     decrescente que começa na posição i
-   
+    
     for(int i = 0; i < n; i++)
     	cout << LI[i] << ' '; puts("");
     for(int i = 0; i < n; i++)
