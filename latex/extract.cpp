@@ -57,13 +57,18 @@ void process_directory(std::string path, std::string dir) {
 int main() {
     std::string cur_path = fs::current_path();
 
-    std::string path = cur_path + "/code";
+    std::string path = cur_path.substr(0, cur_path.size() - 6) + "/code";
+
+    std::cout << path << std::endl;
+
     for (const auto & entry : fs::directory_iterator(path)) {
+        
         std::string dir = get_name(path, entry.path());
         auto values = get_values(dir);
         std::cout << "**" << get_name(dir) << "**\n\n";
         process_directory(path + "/", dir);
         std::cout << std::endl;
     }
+    
     return 0;
 }

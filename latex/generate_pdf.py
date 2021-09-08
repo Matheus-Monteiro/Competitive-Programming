@@ -7,7 +7,7 @@ title = "GEMP - UECE - ICPC Library"
 def get_sections():
   sections = []
   section_name = None
-  with open("contents.md", 'r') as f:
+  with open("../contents.md", 'r') as f:
     for line in f:
       line = line.strip()
       if len(line) < 2: 
@@ -27,27 +27,8 @@ def get_sections():
         if section_name is None:
           raise ValueError("Subsection given without section")
 
-        # run_test(filename)
-        subsections.append((filename, subsection_name))
+        subsections.append(("../" + filename, subsection_name))
   return sections
-
-# def run_test(filename):
-#   if(get_style(filename) == "cpp"):
-#     testFileName = filename.replace("code/", "test/")
-#     testFileName = testFileName.replace(".h", "_test.cpp")
-
-#     print("------------------------------------------")
-#     print("Runnig the %s test: " % testFileName)
-#     print("Compiling...")
-#     retCompile = os.system("g++ -std='c++17' %s -o testApp" % testFileName)
-#     if(retCompile != 0):
-#       raise ValueError("Error compiling test %s!" % testFileName)
-#     print("Runnig the test...")
-#     retRun = os.system("./testApp")   
-#     if(retRun == 0):
-#       print("Passed the test!")
-#     else:
-#       raise ValueError("The %s test failed!" % testFileName)
 
 def get_style(filename):
   ext = filename.lower().split('.')[-1]
@@ -84,9 +65,7 @@ if __name__ == "__main__":
 
   os.system("latexmk -pdf model/notebook.tex > generate_pdf.log")
   
-  
   os.system("mv notebook.pdf GEMP-Notebook.pdf")
   os.system("rm contents.tex")
   os.system("rm notebook.*")
-  #os.system("rm testApp")   
   os.system("rm generate_pdf.log")

@@ -1,9 +1,8 @@
-# GEMP - UECE - ICPC Library [DRAFT]
+# GEMP - UECE - ICPC Library
 
 Code library for competitive programming purposes.
-The script to generate the pdf file was from [Competitive-Programming-Notebook](https://github.com/PauloMiranda98/Competitive-Programming-Notebook).
 
-## Dependencies
+## On the Dependencies
 
 It's necessary to install python and latex.
 
@@ -13,17 +12,21 @@ sudo apt install texlive-latex-extra
 sudo apt-get install latexmk
 ```
 
-## Execution
+## On the Updates
+
+If you have added any new algorithms to the repository run the commands below to update the contents.md file.
 
 ```script
-cd build
-python3 generate_pdf.py
+cd latex
+g++ -std=c++17 extract.cpp
+./a.out > ../contents.md
 ```
 
-## Add
+## On the PDF generation
 
-Create a file with the new code and add it in the `$categoria/` with `name_of_the_algorithm.cpp`. To add it to the PDF file just add it to `contents.md` in the respective `**category**` in the following format: `- [x] [name_in_the_pdf]($category/name_of_the_algorithm.cpp)`
+After updating the contents.md file, execute the command below to generate the PDF.
 
-## Remove
-
-Remove the file's name from `$categoria/` in the `contents.md`.
+```script
+cd latex
+python3 generate_pdf.py
+```

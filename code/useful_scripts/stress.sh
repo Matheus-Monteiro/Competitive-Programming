@@ -15,4 +15,3 @@ for ((i = 1; ; i++)) do
 	fi
 	echo $i
 done
-
