@@ -7,11 +7,13 @@ title = "GEMP - UECE - ICPC Library"
 def get_sections():
   sections = []
   section_name = None
-  with open("../contents.md", 'r') as f:
+  with open("../README.md", 'r') as f:
+    skip = 0
     for line in f:
-      line = line.strip()
-      if len(line) < 2: 
+      skip += 1
+      if skip < 35:
         continue
+      line = line.strip()
       if line[:2] == "**":
         section_name = line[2:-2]
         subsections = []
@@ -25,6 +27,7 @@ def get_sections():
         if len(subsection_name) == 0:
           raise ValueError("Subsection parse error: %" % line)
         if section_name is None:
+          print(line)
           raise ValueError("Subsection given without section")
 
         subsections.append(("../" + filename, subsection_name))

@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <fstream>
 #include <iostream>
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -42,33 +43,55 @@ std::string get_name(std::string s) {
     return s;
 }
 
-void process_directory(std::string path, std::string dir) {
+void process_directory(std::string path, std::string dir, std::vector<std::string> &lines) {
     for (const auto & entry : fs::directory_iterator(path + dir)) {
         std::string name = get_name(path + dir, entry.path());
         std::string s = "- [x] [";
         s += get_name(name) + "](";
         s += "code/" + dir + "/" + name;
         s += ")";
-        std::cout << s << "\n";
+        lines.push_back(s + "\n");
     }
-    std::cout << std::endl;
+    lines.push_back("\n");
 }
 
 int main() {
-    std::string cur_path = fs::current_path();
+    std::string abs_path = fs::current_path();
+    abs_path = abs_path.substr(0, abs_path.size() - 6);
+    std::string path = abs_path + "/code";
 
-    std::string path = cur_path.substr(0, cur_path.size() - 6) + "/code";
+    std::vector<std::string> lines;
 
-    std::cout << path << std::endl;
+    std::ifstream read_me_first_lines (abs_path + "/README.md");
 
-    for (const auto & entry : fs::directory_iterator(path)) {
-        
+    if(read_me_first_lines.is_open()) {
+        int cnt = 0;
+        while(read_me_first_lines.good() and cnt < 35) {
+            lines.push_back("");
+            getline(read_me_first_lines, lines.back());
+            lines.back().push_back('\n');
+            cnt++;
+        }
+        read_me_first_lines.close();
+    }
+
+    lines.push_back("\n## On the Contents\n\n");
+
+    for(const auto & entry : fs::directory_iterator(path)) {
         std::string dir = get_name(path, entry.path());
         auto values = get_values(dir);
-        std::cout << "**" << get_name(dir) << "**\n\n";
-        process_directory(path + "/", dir);
-        std::cout << std::endl;
+        lines.push_back( "**" + get_name(dir) + "**\n" );
+        process_directory(path + "/", dir, lines);
+        lines.push_back("\n");
     }
-    
+        
+    std::ofstream readme(abs_path + "/README.md");
+
+    if(readme.is_open()) {
+        for(auto line : lines)
+            readme << line;
+        readme.close();
+    }
+
     return 0;
 }
