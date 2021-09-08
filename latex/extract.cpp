@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include <algorithm>
+#include <map>
 namespace fs = std::filesystem;
 
 std::string get_name(std::string path, std::string path_and_name) {
@@ -60,36 +62,60 @@ int main() {
     abs_path = abs_path.substr(0, abs_path.size() - 6);
     std::string path = abs_path + "/code";
 
-    std::vector<std::string> lines;
+    std::map<std::string, std::vector<std::string>> section;
+
+    section["header"] = std::vector<std::string>();
 
     std::ifstream read_me_first_lines (abs_path + "/README.md");
 
     if(read_me_first_lines.is_open()) {
         int cnt = 0;
         while(read_me_first_lines.good() and cnt < 35) {
-            lines.push_back("");
-            getline(read_me_first_lines, lines.back());
-            lines.back().push_back('\n');
+            section["header"].push_back("");
+            getline(read_me_first_lines, section["header"].back());
+            section["header"].back().push_back('\n');
             cnt++;
         }
         read_me_first_lines.close();
     }
 
-    lines.push_back("\n## On the Contents\n\n");
+    section["header"].push_back("\n## On the Contents\n\n");
 
     for(const auto & entry : fs::directory_iterator(path)) {
         std::string dir = get_name(path, entry.path());
         auto values = get_values(dir);
-        lines.push_back( "**" + get_name(dir) + "**\n" );
-        process_directory(path + "/", dir, lines);
-        lines.push_back("\n");
+        section["**" + get_name(dir) + "**\n"] = std::vector<std::string>();
+        process_directory(path + "/", dir, section["**" + get_name(dir) + "**\n"]);
+        section["**" + get_name(dir) + "**\n"].push_back("\n");
     }
-        
+
+    std::map<std::string, int> id;
+    
+    id["header"] = 0;
+    id["**Graph**\n"] = 1;
+    id["**Data Structures**\n"] = 2;
+    id["**Dynamic Programming**\n"] = 3;
+    id["**String**\n"] = 4;
+    id["**Math**\n"] = 5;
+    id["**Geometry**\n"] = 6;
+    id["**Miscellaneous**\n"] = 7;
+    id["**Useful Scripts**\n"] = 8;
+
     std::ofstream readme(abs_path + "/README.md");
 
     if(readme.is_open()) {
-        for(auto line : lines)
-            readme << line;
+        for(int i = 0; i < id.size(); i++) {
+            for(auto &s : section) {
+                if(id[s.first] != i) 
+                    continue;
+                if(s.first != "header") {
+                    readme << s.first;
+                    std::sort(s.second.begin(), s.second.end() - 2); 
+                }
+                for(auto l : s.second)
+                    readme << l;
+            }
+        }
         readme.close();
     }
 
