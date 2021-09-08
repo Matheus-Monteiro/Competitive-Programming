@@ -143,6 +143,7 @@
 - [x] [Two Stacks Trick](code/data_structures/two_stacks_trick.cpp)
 - [x] [Segment Tree Tree 2D](code/data_structures/segment_tree_tree_2D.cpp)
 - [x] [Merge Sort Tree With Set](code/data_structures/merge_sort_tree_with_set.cpp)
+- [x] [Segment Tree With Lazy Propagation](code/data_structures/segment_tree_with_lazy_propagation.cpp)
 - [x] [Color Update](code/data_structures/color_update.cpp)
 - [x] [Segment Tree Iterative](code/data_structures/segment_tree_iterative.cpp)
 - [x] [DSU With Partial Persistence](code/data_structures/DSU_with_partial_persistence.cpp)
