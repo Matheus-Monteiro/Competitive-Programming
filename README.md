@@ -197,6 +197,10 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 
 
 **Useful Scripts**
+- [x] [Brute](code/useful_scripts/brute.cpp)
+- [x] [Gen](code/useful_scripts/gen.cpp)
+- [x] [Sol](code/useful_scripts/sol.cpp)
+- [x] [Stress With Checker.sh](code/useful_scripts/stress_with_checker.sh)
 - [x] [Stress.sh](code/useful_scripts/stress.sh)
 
 
