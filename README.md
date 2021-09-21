@@ -201,6 +201,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 - [x] [Gen](code/useful_scripts/gen.cpp)
 - [x] [Makefile](code/useful_scripts/makefile)
 - [x] [Sol](code/useful_scripts/sol.cpp)
+- [x] [Stress Test Animated.sh](code/useful_scripts/stress_test_animated.sh)
 - [x] [Stress With Checker.sh](code/useful_scripts/stress_with_checker.sh)
 - [x] [Stress.sh](code/useful_scripts/stress.sh)
 
