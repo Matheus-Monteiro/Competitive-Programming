@@ -35,6 +35,8 @@ std::string get_name(std::string s) {
     int sz = s.size();
     if(s.substr(sz - 4, 4) == ".cpp")
         s = s.substr(0, sz - 4);
+    else if(s.substr(sz - 3, 3) == ".sh")
+        s = s.substr(0, sz - 3);
     s[0] = toupper(s[0]);
     for(int i = 0; i < s.size(); i++) {
         if(s[i] == '_') {
