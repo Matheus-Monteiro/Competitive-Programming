@@ -88,6 +88,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 - [x] [Merge Sort Tree](code/data_structures/merge_sort_tree.cpp)
 - [x] [Ordered Set With BIT](code/data_structures/ordered_set_With_BIT.cpp)
 - [x] [PBDS](code/data_structures/PBDS.cpp)
+- [x] [Persistent Segment Tree Without Vector](code/data_structures/persistent_segment_tree_without_vector.cpp)
 - [x] [Persistent Segment Tree](code/data_structures/persistent_segment_tree.cpp)
 - [x] [Segment Tree Iterative](code/data_structures/segment_tree_iterative.cpp)
 - [x] [Segment Tree Tree 2D](code/data_structures/segment_tree_tree_2D.cpp)
