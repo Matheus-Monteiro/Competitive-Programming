@@ -108,6 +108,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 - [x] [Kadane 2D](code/dynamic_programming/kadane_2D.cpp)
 - [x] [Kadane 3D](code/dynamic_programming/kadane_3D.cpp)
 - [x] [Knapsack With Copies SqrtN Memory](code/dynamic_programming/knapsack_with_copies_sqrtN_memory.cpp)
+- [x] [Knapsack With Repetition Recurrence](code/dynamic_programming/knapsack_with_repetition_recurrence.cpp)
 - [x] [Knapsack Zero One Without Value](code/dynamic_programming/knapsack_zero_one_without_value.cpp)
 - [x] [Knapsack0-kSemValor](code/dynamic_programming/Knapsack0-kSemValor.cpp)
 - [x] [KnapsackErrichto](code/dynamic_programming/knapsackErrichto.cpp)
