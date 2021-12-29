@@ -150,6 +150,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 - [x] [Miller Rabin](code/math/miller_rabin.cpp)
 - [x] [Mobius](code/math/mobius.cpp)
 - [x] [Mod Gaussian Elimination](code/math/mod_gaussian_elimination.cpp)
+- [x] [Mod Integer](code/math/Mod_Integer.cpp)
 - [x] [Modular Arithmetic](code/math/modular_arithmetic.cpp)
 - [x] [Mulmod Trick](code/math/mulmod_trick.cpp)
 - [x] [Pollard Rho](code/math/pollard_rho.cpp)
