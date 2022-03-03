@@ -93,6 +93,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 - [x] [Segment Tree Iterative](code/data_structures/segment_tree_iterative.cpp)
 - [x] [Segment Tree Tree 2D](code/data_structures/segment_tree_tree_2D.cpp)
 - [x] [Segment Tree With Lazy Propagation](code/data_structures/segment_tree_with_lazy_propagation.cpp)
+- [x] [Sparse Table 2D](code/data_structures/sparse_table_2D.cpp)
 - [x] [Sparse Table RMQ](code/data_structures/sparse_table_RMQ.cpp)
 - [x] [Treap](code/data_structures/Treap.cpp)
 - [x] [TreeIsomorfismWithMap](code/data_structures/treeIsomorfismWithMap.cpp)
@@ -129,6 +130,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 - [x] [Longest Common Substring](code/string/longest_common_substring.cpp)
 - [x] [Manacher](code/string/manacher.cpp)
 - [x] [SA](code/string/SA.cpp)
+- [x] [String Hash](code/string/string_hash.cpp)
 - [x] [Suffix Array And Applications](code/string/suffix_array_and_applications.cpp)
 - [x] [Suffix Array](code/string/suffix_array.cpp)
 - [x] [Trie Static](code/string/trie_static.cpp)
@@ -174,6 +176,7 @@ You can see the current version of the PDF [here](latex/GEMP-Notebook.pdf).
 
 **Miscellaneous**
 - [x] [Big Num Product](code/miscellaneous/big_num_product.cpp)
+- [x] [Centroid Decomposition Closest Colored Vertex](code/miscellaneous/centroid_decomposition_closest_colored_vertex.cpp)
 - [x] [Count Divisors](code/miscellaneous/count_divisors.cpp)
 - [x] [Count Sort](code/miscellaneous/count_sort.cpp)
 - [x] [Counting Different Elements In A Path With Mo](code/miscellaneous/counting_different_elements_in_a_path_with_Mo.cpp)
